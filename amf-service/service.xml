@@ -4,4 +4,39 @@
 <service-builder auto-namespace-tables="false" package-path="com.liferay.amf">
 	<author>Calvin Keum</author>
 	<namespace>AMF</namespace>
+	<entity local-service="true" name="AMFTrackEventEntry" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="amfTrackEventEntryId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="createDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="userId" type="long" />
+		<column name="type" type="int" />
+		<column name="ipAddress" type="String" />
+
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="createDate" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="UserId" return-type="Collection">
+			<finder-column name="userId" />
+		</finder>
+		<finder name="Type" return-type="Collection">
+			<finder-column name="type" />
+		</finder>
+		<finder name="U_T" return-type="Collection">
+			<finder-column name="userId" />
+			<finder-column name="type" />
+		</finder>
+	</entity>
 </service-builder>
