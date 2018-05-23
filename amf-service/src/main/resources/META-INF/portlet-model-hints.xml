@@ -1,3 +1,11 @@
 <?xml version="1.0"?>
 
-<model-hints/>
+<model-hints>
+	<model name="com.liferay.amf.model.AMFTrackEventEntry">
+		<field name="amfTrackEventEntryId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="userId" type="long" />
+		<field name="type" type="int" />
+		<field name="ipAddress" type="String" />
+	</model>
+</model-hints>
