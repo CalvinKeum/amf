@@ -4,7 +4,7 @@
 <routes>
 	<route>
 		<pattern>/signup</pattern>
-		<implicit-parameter name="mvcRenderCommandName">/create_account</implicit-parameter>
+		<implicit-parameter name="mvcRenderCommandName">/amf_registration/create_account</implicit-parameter>
 		<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
 		<implicit-parameter name="p_p_state">normal</implicit-parameter>
 	</route>

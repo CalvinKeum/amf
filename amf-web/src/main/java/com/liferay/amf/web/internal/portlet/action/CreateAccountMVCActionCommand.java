@@ -103,7 +103,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + AMFPortletKeys.AMF_REGISTRATION,
-		"mvc.command.name=/create_account"
+		"mvc.command.name=/amf_registration/create_account"
 	},
 	service = MVCActionCommand.class
 )

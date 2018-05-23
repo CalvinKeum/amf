@@ -12,11 +12,12 @@
  * details.
  */
 
-package com.liferay.amf.web.internal.portlet.route;
+package com.liferay.amf.web.internal.portlet;
 
 import com.liferay.amf.web.constants.AMFPortletKeys;
-import com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper;
-import com.liferay.portal.kernel.portlet.FriendlyURLMapper;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+
+import javax.portlet.Portlet;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -26,18 +27,16 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"com.liferay.portlet.friendly-url-routes=META-INF/friendly-url-routes/routes.xml",
-		"javax.portlet.name=" + AMFPortletKeys.AMF_REGISTRATION
+		"com.liferay.portlet.display-category=category.tools",
+		"javax.portlet.display-name=AMF Monitor",
+		"javax.portlet.init-param.copy-request-parameters=true",
+		"javax.portlet.init-param.template-path=/",
+		"javax.portlet.init-param.view-template=/amf_monitor/view.jsp",
+		"javax.portlet.name=" + AMFPortletKeys.AMF_MONITOR,
+		"javax.portlet.resource-bundle=content.Language",
+		"javax.portlet.security-role-ref=power-user,user"
 	},
-	service = FriendlyURLMapper.class
+	service = Portlet.class
 )
-public class AMFFriendlyURLMapper extends DefaultFriendlyURLMapper {
-
-	@Override
-	public String getMapping() {
-		return _MAPPING;
-	}
-
-	private static final String _MAPPING = "amf_registration";
-
+public class AMFMonitorPortlet extends MVCPortlet {
 }

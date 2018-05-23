@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
+<%@ include file="/amf_registration/init.jsp" %>
 
 <%
 String redirect = ParamUtil.getString(request, "redirect");
@@ -44,8 +44,8 @@ long regionId = 0;
 		</div>
 	</c:when>
 	<c:otherwise>
-		<portlet:actionURL name="/create_account" var="createAccountURL">
-			<portlet:param name="mvcRenderCommandName" value="/create_account" />
+		<portlet:actionURL name="/amf_registration/create_account" var="createAccountURL">
+			<portlet:param name="mvcRenderCommandName" value="/amf_registration/create_account" />
 		</portlet:actionURL>
 
 		<aui:form action="<%= createAccountURL %>" method="post" name="fm">

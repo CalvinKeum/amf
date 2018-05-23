@@ -12,11 +12,13 @@
  * details.
  */
 
-package com.liferay.amf.web.internal.portlet.route;
+package com.liferay.amf.web.internal.portlet.action;
 
 import com.liferay.amf.web.constants.AMFPortletKeys;
-import com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper;
-import com.liferay.portal.kernel.portlet.FriendlyURLMapper;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -26,18 +28,18 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"com.liferay.portlet.friendly-url-routes=META-INF/friendly-url-routes/routes.xml",
-		"javax.portlet.name=" + AMFPortletKeys.AMF_REGISTRATION
+		"javax.portlet.name=" + AMFPortletKeys.AMF_MONITOR,
+		"mvc.command.name=/amf_registration/create_account"
 	},
-	service = FriendlyURLMapper.class
+	service = MVCRenderCommand.class
 )
-public class AMFFriendlyURLMapper extends DefaultFriendlyURLMapper {
+public class ViewMVCRenderCommand implements MVCRenderCommand {
 
 	@Override
-	public String getMapping() {
-		return _MAPPING;
-	}
+	public String render(
+		RenderRequest renderRequest, RenderResponse renderResponse) {
 
-	private static final String _MAPPING = "amf_registration";
+		return "amf_monitor/view.jsp";
+	}
 
 }
