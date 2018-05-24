@@ -18,7 +18,19 @@
 
 <%@ page import="com.liferay.portal.kernel.servlet.SessionMessages" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
-page import="com.liferay.portal.kernel.util.ParamUtil" %>
+page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
+page import="com.liferay.amf.web.internal.display.context.AMFMonitorDisplayContext" %><%@
+page import="com.liferay.amf.web.internal.display.context.DefaultAMFMonitorDisplayContext" %><%@
+page import="com.liferay.amf.web.internal.display.context.util.AMFMonitorRequestHelper" %>
+
+<%@ page import="javax.portlet.PortletRequest" %><%@
+page import="javax.portlet.PortletURL" %><%@
+page import="javax.portlet.WindowState" %>
 
 <%@ page import="java.util.Calendar" %><%@
 page import="java.util.Date" %>
+
+<%
+AMFMonitorRequestHelper amfMonitorRequestHelper = new AMFMonitorRequestHelper(request);
+AMFMonitorDisplayContext amfMonitorDisplayContext = new DefaultAMFMonitorDisplayContext(amfMonitorRequestHelper);
+%>

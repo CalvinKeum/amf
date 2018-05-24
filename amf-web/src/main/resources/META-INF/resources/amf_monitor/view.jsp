@@ -17,22 +17,28 @@
 <%@ include file="/amf_monitor/init.jsp" %>
 
 <%
-String redirect = ParamUtil.getString(request, "redirect");
+PortletURL portletURL = renderResponse.createRenderURL();
 
-boolean male = ParamUtil.getBoolean(request, "male", true);
-
-Calendar birthdayCalendar = CalendarFactoryUtil.getCalendar();
-
-birthdayCalendar.set(Calendar.MONTH, Calendar.JANUARY);
-birthdayCalendar.set(Calendar.DATE, 1);
-birthdayCalendar.set(Calendar.YEAR, 1970);
-
-Country country = CountryServiceUtil.getCountryByA3("USA");
-
-long countryId = country.getCountryId();
-
-long regionId = 0;
+portletURL.setParameter("mvcRenderCommandName", "/amf_monitor/view");
+portletURL.setParameter("tabs1", amfMonitorRequestHelper.getTabs1());
 %>
 
-the monitor
+<c:if test="<%= amfMonitorDisplayContext.isTabs1Visible() %>">
+	<liferay-ui:tabs
+		names="<%= amfMonitorDisplayContext.getTabs1Names() %>"
+		type="tabs nav-tabs-default"
+		url="<%= amfMonitorDisplayContext.getTabs1PortletURL() %>"
+	/>
+</c:if>
 
+<c:choose>
+	<c:when test="<%= amfMonitorDisplayContext.isShowLoginTrackEventEntries() %>">
+		<%@ include file="/amf_monitor/login_event_entries.jspf" %>
+	</c:when>
+	<c:when test="<%= amfMonitorDisplayContext.isShowRegistrationTrackEventEntries() %>">
+		<%@ include file="/amf_monitor/registration_event_entries.jspf" %>
+	</c:when>
+	<c:otherwise>
+		<%@ include file="/amf_monitor/all_event_entries.jspf" %>
+	</c:otherwise>
+</c:choose>

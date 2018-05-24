@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + AMFPortletKeys.AMF_MONITOR,
-		"mvc.command.name=/amf_registration/create_account"
+		"mvc.command.name=/amf_monitor/view"
 	},
 	service = MVCRenderCommand.class
 )
@@ -39,7 +39,7 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
-		return "amf_monitor/view.jsp";
+		return "/amf_monitor/view.jsp";
 	}
 
 }
