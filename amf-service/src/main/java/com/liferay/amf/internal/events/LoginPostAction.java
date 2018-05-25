@@ -14,17 +14,13 @@
 
 package com.liferay.amf.internal.events;
 
-import com.liferay.amf.service.AMFTrackEventEntryLocalService;
 import com.liferay.amf.constants.AMFTrackEventEntryConstants;
-import com.liferay.portal.kernel.audit.AuditMessage;
-import com.liferay.portal.kernel.audit.AuditRouter;
+import com.liferay.amf.service.AMFTrackEventEntryLocalService;
 import com.liferay.portal.kernel.events.Action;
-import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.events.LifecycleAction;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +40,7 @@ public class LoginPostAction extends Action {
 
 	@Override
 	public void run(HttpServletRequest request, HttpServletResponse response) {
-		User user = (User) request.getAttribute(WebKeys.USER);
+		User user = (User)request.getAttribute(WebKeys.USER);
 
 		try {
 			_amfTrackEventEntryLocalService.addTrackEventEntry(
@@ -53,15 +49,14 @@ public class LoginPostAction extends Action {
 		}
 		catch (Exception e) {
 			_log.error(
-				"Unable to add track event entry for user " + 
-					user.getUserId());
+				"Unable to add track event entry for user " + user.getUserId());
 		}
 	}
 
-	@Reference
-	private AMFTrackEventEntryLocalService _amfTrackEventEntryLocalService;
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		LoginPostAction.class);
+
+	@Reference
+	private AMFTrackEventEntryLocalService _amfTrackEventEntryLocalService;
 
 }

@@ -15,15 +15,8 @@
 package com.liferay.amf.web.internal.display.context;
 
 import com.liferay.portal.kernel.display.context.DisplayContext;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.Organization;
-import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.UserGroup;
 
 import java.text.Format;
-
-import java.util.LinkedHashMap;
 
 /**
  * @author Calvin Keum
@@ -41,7 +34,7 @@ public interface AMFMonitorDisplayContext extends DisplayContext {
 	public boolean isShowAllTrackEventEntries();
 
 	public boolean isShowLoginTrackEventEntries();
-	
+
 	public boolean isShowRegistrationTrackEventEntries();
 
 	public boolean isTabs1Visible();

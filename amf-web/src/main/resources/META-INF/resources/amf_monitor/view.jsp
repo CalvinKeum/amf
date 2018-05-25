@@ -21,6 +21,10 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("mvcRenderCommandName", "/amf_monitor/view");
 portletURL.setParameter("tabs1", amfMonitorRequestHelper.getTabs1());
+
+ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
+
+SearchContainer aMFMonitorSearchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, amfMonitorDisplayContext.getPageDelta(), portletURL, null, "there-are-no-entries");
 %>
 
 <c:if test="<%= amfMonitorDisplayContext.isTabs1Visible() %>">

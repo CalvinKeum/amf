@@ -12,34 +12,28 @@
  * details.
  */
 
-package com.liferay.amf.constants;
+package com.liferay.amf.exception;
 
-import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Calvin Keum
  */
-public class AMFTrackEventEntryConstants {
+public class TrackEventEntryTypeException extends PortalException {
 
-	public static final String EMPTY_IP_ADDRESS = "0.0.0.0";
+	public TrackEventEntryTypeException() {
+	}
 
-	public static final String LABEL_LOGIN = "login";
+	public TrackEventEntryTypeException(String msg) {
+		super(msg);
+	}
 
-	public static final String LABEL_REGISTRATION = "registration";
+	public TrackEventEntryTypeException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
 
-	public static final int TYPE_LOGIN = 1;
-
-	public static final int TYPE_REGISTRATION = 2;
-
-	public static String getEventTypeLabel(int type) {
-		if (type == TYPE_LOGIN) {
-			return LABEL_LOGIN;
-		}
-		else if (type == TYPE_REGISTRATION) {
-			return LABEL_REGISTRATION;
-		}
-
-		return StringPool.BLANK;
+	public TrackEventEntryTypeException(Throwable cause) {
+		super(cause);
 	}
 
 }

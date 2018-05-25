@@ -16,22 +16,11 @@ package com.liferay.amf.web.internal.display.context;
 
 import com.liferay.amf.web.internal.display.context.util.AMFMonitorRequestHelper;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.Layout;
-import com.liferay.portal.kernel.model.Organization;
-import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.PrefsParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
+
 import java.util.UUID;
 
 //permission-example.,..
@@ -57,8 +46,7 @@ public class DefaultAMFMonitorDisplayContext
 
 	@Override
 	public Format getDateFormatDate() {
-		ThemeDisplay themeDisplay =
-			_amfMonitorRequestHelper.getThemeDisplay();
+		ThemeDisplay themeDisplay = _amfMonitorRequestHelper.getThemeDisplay();
 
 		return FastDateFormatFactoryUtil.getDate(
 			DateFormat.FULL, themeDisplay.getLocale(),
@@ -95,8 +83,7 @@ public class DefaultAMFMonitorDisplayContext
 		return tabs1URL.toString();
 	}
 
-	/*
-	@Override
+	/*@Override
 	public boolean isCustomizeAnnouncementsDisplayed() {
 		Group scopeGroup = _amfMonitorRequestHelper.getScopeGroup();
 
@@ -105,7 +92,13 @@ public class DefaultAMFMonitorDisplayContext
 			_amfMonitorRequestHelper.getRequest(),
 			"customizeAnnouncementsDisplayed", !scopeGroup.isUser());
 	}
-	*/
+
+*/
+
+	@Override
+	public UUID getUuid() {
+		return _UUID;
+	}
 
 	@Override
 	public boolean isShowAllTrackEventEntries() {
@@ -120,7 +113,7 @@ public class DefaultAMFMonitorDisplayContext
 
 		return tabs1.equals("login");
 	}
-	
+
 	@Override
 	public boolean isShowRegistrationTrackEventEntries() {
 		String tabs1 = _amfMonitorRequestHelper.getTabs1();
@@ -130,8 +123,7 @@ public class DefaultAMFMonitorDisplayContext
 
 	@Override
 	public boolean isTabs1Visible() {
-		/*
-		String portletName = _amfMonitorRequestHelper.getPortletName();
+		/*String portletName = _amfMonitorRequestHelper.getPortletName();
 
 		if (!portletName.equals(AnnouncementsPortletKeys.ALERTS) ||
 			(portletName.equals(AnnouncementsPortletKeys.ALERTS) &&
@@ -144,14 +136,9 @@ public class DefaultAMFMonitorDisplayContext
 			return true;
 		}
 
-		return false;
-		*/
-		return true;
-	}
+		return false;*/
 
-	@Override
-	public UUID getUuid() {
-		return _UUID;
+		return true;
 	}
 
 	private static final UUID _UUID = UUID.fromString(

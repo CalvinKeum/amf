@@ -14,13 +14,13 @@
 
 package com.liferay.amf.internal.model.listener;
 
+import com.liferay.amf.constants.AMFTrackEventEntryConstants;
 import com.liferay.amf.service.AMFTrackEventEntryLocalService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.amf.constants.AMFTrackEventEntryConstants;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -35,21 +35,19 @@ public class UserModelListener extends BaseModelListener<User> {
 	public void onAfterCreate(User user) {
 		try {
 			_amfTrackEventEntryLocalService.addTrackEventEntry(
-				user.getUserId(), 
-				AMFTrackEventEntryConstants.TYPE_REGISTRATION,
+				user.getUserId(), AMFTrackEventEntryConstants.TYPE_REGISTRATION,
 				AMFTrackEventEntryConstants.EMPTY_IP_ADDRESS);
 		}
 		catch (Exception e) {
 			_log.error(
-				"Unable to add track event entry for user " + 
-					user.getUserId());
+				"Unable to add track event entry for user " + user.getUserId());
 		}
 	}
 
-	@Reference
-	private AMFTrackEventEntryLocalService _amfTrackEventEntryLocalService;
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		UserModelListener.class);
+
+	@Reference
+	private AMFTrackEventEntryLocalService _amfTrackEventEntryLocalService;
 
 }

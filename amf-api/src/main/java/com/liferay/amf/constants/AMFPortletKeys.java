@@ -18,7 +18,7 @@ package com.liferay.amf.constants;
  * @author Calvin Keum
  */
 public class AMFPortletKeys {
-		
+
 	public static final String AMF_MONITOR =
 		"com_liferay_amf_web_portlet_AMFMonitorPortlet";
 

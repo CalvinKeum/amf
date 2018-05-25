@@ -16,11 +16,13 @@ package com.liferay.amf.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.amf.constants.AMFTrackEventEntryConstants;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.amf.constants.AMFTrackEventEntryConstants;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
@@ -34,11 +36,7 @@ public class AMFTrackEventEntryImpl extends AMFTrackEventEntryBaseImpl {
 
 	@Override
 	public String getCreateDateDisplayHTML() throws PortalException {
-		String pattern = "yyyy-MM-dd HH:mm:ss";
-
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-		String date = simpleDateFormat.format(getCreateDate());
+		String date = _dateFormat.format(getCreateDate());
 
 		return HtmlUtil.escape(date);
 	}
@@ -62,5 +60,8 @@ public class AMFTrackEventEntryImpl extends AMFTrackEventEntryBaseImpl {
 
 		return HtmlUtil.escape(sb.toString());
 	}
+
+	private final DateFormat _dateFormat = new SimpleDateFormat(
+		"yyyy-MM-dd HH:mm:ss");
 
 }

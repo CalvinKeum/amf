@@ -51,42 +51,18 @@ import com.liferay.portal.kernel.exception.UserScreenNameException;
 import com.liferay.portal.kernel.exception.UserSmsException;
 import com.liferay.portal.kernel.exception.WebsiteURLException;
 import com.liferay.portal.kernel.model.Address;
-import com.liferay.portal.kernel.model.Company;
-import com.liferay.portal.kernel.model.Contact;
-import com.liferay.portal.kernel.model.Country;
-import com.liferay.portal.kernel.model.ListType;
-import com.liferay.portal.kernel.model.ListTypeConstants;
 import com.liferay.portal.kernel.model.Phone;
-import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.security.auth.session.AuthenticatedSessionManager;
-import com.liferay.portal.kernel.service.AddressLocalService;
-import com.liferay.portal.kernel.service.ContactLocalService;
-import com.liferay.portal.kernel.service.CountryService;
-import com.liferay.portal.kernel.service.ListTypeLocalService;
-import com.liferay.portal.kernel.service.PhoneLocalService;
-import com.liferay.portal.kernel.service.RegionService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
-import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.service.UserService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.CalendarUtil;
-import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -118,7 +94,7 @@ public class CreateAccountMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest);
 
 		try {
-			ThemeDisplay themeDisplay = 
+			ThemeDisplay themeDisplay =
 				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
 			String username = ParamUtil.getString(actionRequest, "username");

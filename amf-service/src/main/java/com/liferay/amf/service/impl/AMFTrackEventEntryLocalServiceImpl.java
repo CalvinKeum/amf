@@ -14,19 +14,17 @@
 
 package com.liferay.amf.service.impl;
 
-import com.liferay.amf.service.base.AMFTrackEventEntryLocalServiceBaseImpl;
+import com.liferay.amf.constants.AMFTrackEventEntryConstants;
+import com.liferay.amf.exception.TrackEventEntryIpAddressException;
+import com.liferay.amf.exception.TrackEventEntryTypeException;
 import com.liferay.amf.model.AMFTrackEventEntry;
-import com.liferay.amf.service.permission.AMFTrackEventEntryPermission;
+import com.liferay.amf.service.base.AMFTrackEventEntryLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.amf.constants.AMFTrackEventEntryActionKeys;
-import com.liferay.amf.constants.AMFTrackEventEntryConstants;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Date;
 import java.util.List;
-
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Calvin Keum
@@ -60,11 +58,8 @@ public class AMFTrackEventEntryLocalServiceImpl
 	}
 
 	@Override
-	public List<AMFTrackEventEntry> getAMFTrackEventEntries(
-			long userId, int start, int end) 
-		throws PortalException {
-
-		return amfTrackEventEntryPersistence.findByUserId(userId, start, end);
+	public int count(int type) throws PortalException {
+		return amfTrackEventEntryPersistence.countByType(type);
 	}
 
 	@Override
@@ -73,16 +68,24 @@ public class AMFTrackEventEntryLocalServiceImpl
 	}
 
 	@Override
+	public int count(long userId, int type) throws PortalException {
+		return amfTrackEventEntryPersistence.countByU_T(userId, type);
+	}
+
+	@Override
 	public List<AMFTrackEventEntry> getAMFTrackEventEntries(
-			int type, int start, int end) 
+			int type, int start, int end)
 		throws PortalException {
 
 		return amfTrackEventEntryPersistence.findByType(type, start, end);
 	}
 
 	@Override
-	public int count(int type) throws PortalException {
-		return amfTrackEventEntryPersistence.countByType(type);
+	public List<AMFTrackEventEntry> getAMFTrackEventEntries(
+			long userId, int start, int end)
+		throws PortalException {
+
+		return amfTrackEventEntryPersistence.findByUserId(userId, start, end);
 	}
 
 	@Override
@@ -94,18 +97,22 @@ public class AMFTrackEventEntryLocalServiceImpl
 			userId, type, start, end);
 	}
 
-	@Override
-	public int count(long userId, int type) throws PortalException {
-		return amfTrackEventEntryPersistence.countByU_T(userId, type);
-	}
-
-	protected void validate(long userId, int type, String ipAddress) 
+	protected void validate(long userId, int type, String ipAddress)
 		throws PortalException {
 
 		userLocalService.getUser(userId);
 
-		//TODO: add validation
+		String typeLabel = AMFTrackEventEntryConstants.getEventTypeLabel(type);
 
+		if (Validator.isNull(typeLabel)) {
+			throw new TrackEventEntryTypeException(
+				"Invalid track event entry type " + type);
+		}
+
+		if (!Validator.isIPAddress(ipAddress)) {
+			throw new TrackEventEntryIpAddressException(
+				"Invalid track event entry ip address " + ipAddress);
+		}
 	}
 
 }

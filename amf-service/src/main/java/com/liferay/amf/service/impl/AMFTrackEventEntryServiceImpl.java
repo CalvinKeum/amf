@@ -14,21 +14,15 @@
 
 package com.liferay.amf.service.impl;
 
-import com.liferay.amf.service.base.AMFTrackEventEntryServiceBaseImpl;
-import com.liferay.amf.model.AMFTrackEventEntry;
 import com.liferay.amf.constants.AMFPortletKeys;
+import com.liferay.amf.constants.AMFTrackEventEntryActionKeys;
+import com.liferay.amf.model.AMFTrackEventEntry;
+import com.liferay.amf.service.base.AMFTrackEventEntryServiceBaseImpl;
 import com.liferay.amf.service.permission.AMFTrackEventEntryPermission;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.amf.constants.AMFTrackEventEntryActionKeys;
 import com.liferay.portal.kernel.service.ServiceContext;
 
-import java.util.Date;
 import java.util.List;
-
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Calvin Keum
@@ -96,6 +90,3 @@ public class AMFTrackEventEntryServiceImpl
 	}
 
 }
-
-
-

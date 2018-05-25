@@ -1,4 +1,4 @@
-login<%--
+<%--
 /**
 * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
 *
@@ -13,11 +13,6 @@ login<%--
 * details.
 */
 --%>
-<%
-	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
-
-	SearchContainer aMFMonitorSearchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, amfMonitorDisplayContext.getPageDelta(), portletURL, null, "there-are-no-entries");
-%>
 
 <liferay-ui:search-container
 	searchContainer="<%= aMFMonitorSearchContainer %>"
@@ -27,34 +22,7 @@ login<%--
 		results="<%= AMFTrackEventEntryServiceUtil.getAMFTrackEventEntries(serviceContext, AMFTrackEventEntryConstants.TYPE_LOGIN, searchContainer.getStart(), searchContainer.getEnd()) %>"
 	/>
 
-	<liferay-ui:search-container-row
-		className="com.liferay.amf.model.AMFTrackEventEntry"
-		escapedModel="<%= true %>"
-		keyProperty="amfTrackEventEntryId"
-		modelVar="amfTrackEventEntry"
-	>
-		<liferay-ui:search-container-column-text
-			name="createDate"
-			value="<%= amfTrackEventEntry.getCreateDateDisplayHTML() %>"
-		/>
-
-		<liferay-ui:search-container-column-text
-			name="user"
-			value="<%= amfTrackEventEntry.getUserNameIdDisplayHTML() %>"
-		/>
-
-		<liferay-ui:search-container-column-text
-			name="ipAddress"
-			property="ipAddress"
-		/>
-
-		<liferay-ui:search-container-column-text
-			name="type"
-		>
-			<%= LanguageUtil.get(request, amfTrackEventEntry.getTypeLabelDisplayHTML()) %>
-		</liferay-ui:search-container-column-text>
-
-	</liferay-ui:search-container-row>
+	<%@ include file="/amf_monitor/event_entry.jspf" %>
 
 	<liferay-ui:search-iterator />
 </liferay-ui:search-container>

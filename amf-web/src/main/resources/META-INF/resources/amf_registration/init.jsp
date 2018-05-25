@@ -40,13 +40,7 @@ page import="com.liferay.portal.kernel.exception.UserEmailAddressException" %><%
 page import="com.liferay.portal.kernel.exception.UserIdException" %><%@
 page import="com.liferay.portal.kernel.exception.UserPasswordException" %><%@
 page import="com.liferay.portal.kernel.exception.UserScreenNameException" %><%@
-page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.model.Country" %><%@
 page import="com.liferay.portal.kernel.service.CountryServiceUtil" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionMessages" %><%@
-page import="com.liferay.portal.kernel.util.CalendarFactoryUtil" %><%@
-page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
-page import="com.liferay.portal.kernel.util.ParamUtil" %>
-
-<%@ page import="java.util.Calendar" %><%@
-page import="java.util.Date" %>
+page import="com.liferay.portal.kernel.util.CalendarFactoryUtil" %>

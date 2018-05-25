@@ -276,9 +276,7 @@ public class AMFRegistrationServiceImpl implements AMFRegistrationService {
 		if (!Validator.isDigit(homePhone)) {
 			throw new HomePhoneException.MustBeNumeric();
 		}
-		else if (homePhone.length() !=
-					AMFConfigurationValues.PHONE_LENGTH) {
-
+		else if (homePhone.length() != AMFConfigurationValues.PHONE_LENGTH) {
 			throw new HomePhoneException.MustHaveLength(
 				AMFConfigurationValues.PHONE_LENGTH);
 		}
@@ -307,9 +305,7 @@ public class AMFRegistrationServiceImpl implements AMFRegistrationService {
 		if (!Validator.isDigit(mobilePhone)) {
 			throw new MobilePhoneException.MustBeNumeric();
 		}
-		else if (mobilePhone.length() !=
-					AMFConfigurationValues.PHONE_LENGTH) {
-
+		else if (mobilePhone.length() != AMFConfigurationValues.PHONE_LENGTH) {
 			throw new MobilePhoneException.MustHaveLength(
 				AMFConfigurationValues.PHONE_LENGTH);
 		}
@@ -467,9 +463,7 @@ public class AMFRegistrationServiceImpl implements AMFRegistrationService {
 		else if (!Validator.isDigit(zip)) {
 			throw new AddressZipException.MustBeNumeric();
 		}
-		else if (zip.length() !=
-					AMFConfigurationValues.ZIP_LENGTH) {
-
+		else if (zip.length() != AMFConfigurationValues.ZIP_LENGTH) {
 			throw new AddressZipException.MustHaveLength(
 				AMFConfigurationValues.ZIP_LENGTH);
 		}
