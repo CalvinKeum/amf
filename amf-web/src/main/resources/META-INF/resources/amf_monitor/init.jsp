@@ -16,19 +16,16 @@
 
 <%@ include file="/init.jsp" %>
 
-<%@ page import="com.liferay.amf.constants.AMFTrackEventEntryConstants" %><%@
-page import="com.liferay.amf.service.AMFTrackEventEntryServiceUtil" %><%@
+<%@ page import="com.liferay.amf.model.AMFTrackEventEntry" %><%@
 page import="com.liferay.amf.web.internal.display.context.AMFMonitorDisplayContext" %><%@
 page import="com.liferay.amf.web.internal.display.context.DefaultAMFMonitorDisplayContext" %><%@
 page import="com.liferay.amf.web.internal.display.context.util.AMFMonitorRequestHelper" %><%@
 page import="com.liferay.portal.kernel.dao.search.SearchContainer" %><%@
-page import="com.liferay.portal.kernel.service.ServiceContext" %><%@
-page import="com.liferay.portal.kernel.service.ServiceContextFactory" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionMessages" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 
 <%
 AMFMonitorRequestHelper amfMonitorRequestHelper = new AMFMonitorRequestHelper(request);
-AMFMonitorDisplayContext amfMonitorDisplayContext = new DefaultAMFMonitorDisplayContext(amfMonitorRequestHelper);
+AMFMonitorDisplayContext amfMonitorDisplayContext = new DefaultAMFMonitorDisplayContext(amfMonitorRequestHelper, request);
 %>

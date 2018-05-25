@@ -14,23 +14,30 @@
 
 package com.liferay.amf.web.internal.display.context;
 
+import com.liferay.amf.constants.AMFTrackEventEntryConstants;
+import com.liferay.amf.model.AMFTrackEventEntry;
+import com.liferay.amf.service.AMFTrackEventEntryServiceUtil;
 import com.liferay.amf.web.internal.display.context.util.AMFMonitorRequestHelper;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 
-import java.util.UUID;
-
-//permission-example.,..
-//import com.liferay.portlet.announcements.service.permission.AnnouncementsEntryPermission;
-
 import java.text.DateFormat;
 import java.text.Format;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletURL;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Calvin Keum
@@ -39,9 +46,11 @@ public class DefaultAMFMonitorDisplayContext
 	implements AMFMonitorDisplayContext {
 
 	public DefaultAMFMonitorDisplayContext(
-		AMFMonitorRequestHelper amfMonitorRequestHelper) {
+		AMFMonitorRequestHelper amfMonitorRequestHelper,
+		HttpServletRequest request) {
 
 		_amfMonitorRequestHelper = amfMonitorRequestHelper;
+		_request = request;
 	}
 
 	@Override
@@ -83,18 +92,6 @@ public class DefaultAMFMonitorDisplayContext
 		return tabs1URL.toString();
 	}
 
-	/*@Override
-	public boolean isCustomizeAnnouncementsDisplayed() {
-		Group scopeGroup = _amfMonitorRequestHelper.getScopeGroup();
-
-		return PrefsParamUtil.getBoolean(
-			_amfMonitorRequestHelper.getPortletPreferences(),
-			_amfMonitorRequestHelper.getRequest(),
-			"customizeAnnouncementsDisplayed", !scopeGroup.isUser());
-	}
-
-*/
-
 	@Override
 	public UUID getUuid() {
 		return _UUID;
@@ -122,28 +119,48 @@ public class DefaultAMFMonitorDisplayContext
 	}
 
 	@Override
-	public boolean isTabs1Visible() {
-		/*String portletName = _amfMonitorRequestHelper.getPortletName();
+	public void populateResultsAndTotal(SearchContainer searchContainer)
+		throws PortalException {
 
-		if (!portletName.equals(AnnouncementsPortletKeys.ALERTS) ||
-			(portletName.equals(AnnouncementsPortletKeys.ALERTS) &&
-			 AnnouncementsEntryPermission.contains(
-				 _amfMonitorRequestHelper.getPermissionChecker(),
-				 _amfMonitorRequestHelper.getLayout(),
-				 AnnouncementsPortletKeys.ANNOUNCEMENTS_ADMIN,
-				 ActionKeys.VIEW))) {
+		int total = 0;
+		List<AMFTrackEventEntry> results = new ArrayList<>();
 
-			return true;
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			_request);
+
+		if (isShowLoginTrackEventEntries()) {
+			total = AMFTrackEventEntryServiceUtil.getAMFTrackEventEntryCount(
+				serviceContext, AMFTrackEventEntryConstants.TYPE_LOGIN);
+
+			results = AMFTrackEventEntryServiceUtil.getAMFTrackEventEntries(
+				serviceContext, AMFTrackEventEntryConstants.TYPE_LOGIN,
+				searchContainer.getStart(), searchContainer.getEnd());
+		}
+		else if (isShowRegistrationTrackEventEntries()) {
+			total = AMFTrackEventEntryServiceUtil.getAMFTrackEventEntryCount(
+				serviceContext, AMFTrackEventEntryConstants.TYPE_REGISTRATION);
+
+			results = AMFTrackEventEntryServiceUtil.getAMFTrackEventEntries(
+				serviceContext, AMFTrackEventEntryConstants.TYPE_REGISTRATION,
+				searchContainer.getStart(), searchContainer.getEnd());
+		}
+		else {
+			total = AMFTrackEventEntryServiceUtil.getAMFTrackEventEntryCount(
+				serviceContext);
+
+			results = AMFTrackEventEntryServiceUtil.getAMFTrackEventEntries(
+				serviceContext, searchContainer.getStart(),
+				searchContainer.getEnd());
 		}
 
-		return false;*/
-
-		return true;
+		searchContainer.setTotal(total);
+		searchContainer.setResults(results);
 	}
 
 	private static final UUID _UUID = UUID.fromString(
 		"CD705D0E-7DB4-430C-9492-F1FA25ACE02E");
 
 	private final AMFMonitorRequestHelper _amfMonitorRequestHelper;
+	private final HttpServletRequest _request;
 
 }

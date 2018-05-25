@@ -22,27 +22,52 @@ PortletURL portletURL = renderResponse.createRenderURL();
 portletURL.setParameter("mvcRenderCommandName", "/amf_monitor/view");
 portletURL.setParameter("tabs1", amfMonitorRequestHelper.getTabs1());
 
-ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
-
 SearchContainer aMFMonitorSearchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, amfMonitorDisplayContext.getPageDelta(), portletURL, null, "there-are-no-entries");
+
+amfMonitorDisplayContext.populateResultsAndTotal(aMFMonitorSearchContainer);
 %>
 
-<c:if test="<%= amfMonitorDisplayContext.isTabs1Visible() %>">
-	<liferay-ui:tabs
-		names="<%= amfMonitorDisplayContext.getTabs1Names() %>"
-		type="tabs nav-tabs-default"
-		url="<%= amfMonitorDisplayContext.getTabs1PortletURL() %>"
-	/>
-</c:if>
+<liferay-ui:tabs
+	names="<%= amfMonitorDisplayContext.getTabs1Names() %>"
+	type="tabs nav-tabs-default"
+	url="<%= amfMonitorDisplayContext.getTabs1PortletURL() %>"
+/>
 
-<c:choose>
-	<c:when test="<%= amfMonitorDisplayContext.isShowLoginTrackEventEntries() %>">
-		<%@ include file="/amf_monitor/login_event_entries.jspf" %>
-	</c:when>
-	<c:when test="<%= amfMonitorDisplayContext.isShowRegistrationTrackEventEntries() %>">
-		<%@ include file="/amf_monitor/registration_event_entries.jspf" %>
-	</c:when>
-	<c:otherwise>
-		<%@ include file="/amf_monitor/all_event_entries.jspf" %>
-	</c:otherwise>
-</c:choose>
+<liferay-ui:search-container
+	searchContainer="<%= aMFMonitorSearchContainer %>"
+	total="<%= aMFMonitorSearchContainer.getTotal() %>"
+>
+	<liferay-ui:search-container-results
+		results="<%= aMFMonitorSearchContainer.getResults() %>"
+	/>
+
+	<liferay-ui:search-container-row
+		className="com.liferay.amf.model.AMFTrackEventEntry"
+		escapedModel="<%= true %>"
+		keyProperty="amfTrackEventEntryId"
+		modelVar="amfTrackEventEntry"
+	>
+		<liferay-ui:search-container-column-text
+			name="occurredDate"
+			value="<%= amfTrackEventEntry.getCreateDateDisplayHTML() %>"
+		/>
+
+		<liferay-ui:search-container-column-text
+			name="user"
+			value="<%= amfTrackEventEntry.getUserNameIdDisplayHTML() %>"
+		/>
+
+		<liferay-ui:search-container-column-text
+			name="ipAddress"
+			property="ipAddress"
+		/>
+
+		<liferay-ui:search-container-column-text
+			name="type"
+		>
+			<%= LanguageUtil.get(request, amfTrackEventEntry.getTypeLabelDisplayHTML()) %>
+		</liferay-ui:search-container-column-text>
+	</liferay-ui:search-container-row>
+
+	<liferay-ui:search-iterator />
+</liferay-ui:search-container>

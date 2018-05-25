@@ -14,7 +14,9 @@
 
 package com.liferay.amf.web.internal.display.context;
 
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.display.context.DisplayContext;
+import com.liferay.portal.kernel.exception.PortalException;
 
 import java.text.Format;
 
@@ -37,6 +39,7 @@ public interface AMFMonitorDisplayContext extends DisplayContext {
 
 	public boolean isShowRegistrationTrackEventEntries();
 
-	public boolean isTabs1Visible();
+	public void populateResultsAndTotal(SearchContainer searchContainer)
+		throws PortalException;
 
 }
