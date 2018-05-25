@@ -15,7 +15,7 @@
 package com.liferay.amf.web.internal.portlet.action;
 
 import com.liferay.amf.AMFRegistrationService;
-import com.liferay.amf.web.constants.AMFPortletKeys;
+import com.liferay.amf.constants.AMFPortletKeys;
 import com.liferay.amf.exception.AddressCityException;
 import com.liferay.amf.exception.AddressStateException;
 import com.liferay.amf.exception.AddressStreetException;

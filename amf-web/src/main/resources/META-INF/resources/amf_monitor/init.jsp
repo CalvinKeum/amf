@@ -19,8 +19,14 @@
 <%@ page import="com.liferay.portal.kernel.servlet.SessionMessages" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
+page import="com.liferay.portal.kernel.dao.search.SearchContainer" %><%@
+page import="com.liferay.amf.service.AMFTrackEventEntryLocalServiceUtil" %><%@
+page import="com.liferay.amf.service.AMFTrackEventEntryServiceUtil" %><%@
 page import="com.liferay.amf.web.internal.display.context.AMFMonitorDisplayContext" %><%@
 page import="com.liferay.amf.web.internal.display.context.DefaultAMFMonitorDisplayContext" %><%@
+page import="com.liferay.amf.constants.AMFTrackEventEntryConstants" %><%@
+page import="com.liferay.portal.kernel.service.ServiceContext" %><%@
+page import="com.liferay.portal.kernel.service.ServiceContextFactory" %><%@
 page import="com.liferay.amf.web.internal.display.context.util.AMFMonitorRequestHelper" %>
 
 <%@ page import="javax.portlet.PortletRequest" %><%@
