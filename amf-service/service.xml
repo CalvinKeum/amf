@@ -4,7 +4,7 @@
 <service-builder auto-namespace-tables="false" package-path="com.liferay.amf">
 	<author>Calvin Keum</author>
 	<namespace>AMF</namespace>
-	<entity local-service="true" name="AMFTrackEventEntry" remote-service="false">
+	<entity local-service="true" name="AMFTrackEventEntry" remote-service="true">
 
 		<!-- PK fields -->
 
@@ -17,6 +17,7 @@
 		<!-- Other fields -->
 
 		<column name="userId" type="long" />
+		<column name="userName" type="String" />
 		<column name="type" type="int" />
 		<column name="ipAddress" type="String" />
 

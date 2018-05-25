@@ -15,26 +15,97 @@
 package com.liferay.amf.service.impl;
 
 import com.liferay.amf.service.base.AMFTrackEventEntryLocalServiceBaseImpl;
+import com.liferay.amf.model.AMFTrackEventEntry;
+import com.liferay.amf.service.permission.AMFTrackEventEntryPermission;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.amf.constants.AMFTrackEventEntryActionKeys;
+import com.liferay.amf.constants.AMFTrackEventEntryConstants;
+
+import java.util.Date;
+import java.util.List;
+
+import org.osgi.service.component.annotations.Reference;
 
 /**
- * The implementation of the amf track event entry local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.amf.service.AMFTrackEventEntryLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
  * @author Calvin Keum
- * @see AMFTrackEventEntryLocalServiceBaseImpl
- * @see com.liferay.amf.service.AMFTrackEventEntryLocalServiceUtil
  */
 public class AMFTrackEventEntryLocalServiceImpl
 	extends AMFTrackEventEntryLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. Always use {@link com.liferay.amf.service.AMFTrackEventEntryLocalServiceUtil} to access the amf track event entry local service.
-	 */
+
+	@Override
+	public AMFTrackEventEntry addTrackEventEntry(
+			long userId, int type, String ipAddress)
+		throws PortalException {
+
+		validate(userId, type, ipAddress);
+
+		User user = userLocalService.getUser(userId);
+
+		long amfTrackEventEntryId = counterLocalService.increment();
+
+		AMFTrackEventEntry amfTrackEventEntry =
+			amfTrackEventEntryPersistence.create(amfTrackEventEntryId);
+
+		amfTrackEventEntry.setCreateDate(new Date());
+		amfTrackEventEntry.setUserName(user.getScreenName());
+		amfTrackEventEntry.setUserId(userId);
+		amfTrackEventEntry.setType(type);
+		amfTrackEventEntry.setIpAddress(ipAddress);
+
+		amfTrackEventEntryPersistence.update(amfTrackEventEntry);
+
+		return amfTrackEventEntry;
+	}
+
+	@Override
+	public List<AMFTrackEventEntry> getAMFTrackEventEntries(
+			long userId, int start, int end) 
+		throws PortalException {
+
+		return amfTrackEventEntryPersistence.findByUserId(userId, start, end);
+	}
+
+	@Override
+	public int count(long userId) throws PortalException {
+		return amfTrackEventEntryPersistence.countByUserId(userId);
+	}
+
+	@Override
+	public List<AMFTrackEventEntry> getAMFTrackEventEntries(
+			int type, int start, int end) 
+		throws PortalException {
+
+		return amfTrackEventEntryPersistence.findByType(type, start, end);
+	}
+
+	@Override
+	public int count(int type) throws PortalException {
+		return amfTrackEventEntryPersistence.countByType(type);
+	}
+
+	@Override
+	public List<AMFTrackEventEntry> getAMFTrackEventEntries(
+			long userId, int type, int start, int end)
+		throws PortalException {
+
+		return amfTrackEventEntryPersistence.findByU_T(
+			userId, type, start, end);
+	}
+
+	@Override
+	public int count(long userId, int type) throws PortalException {
+		return amfTrackEventEntryPersistence.countByU_T(userId, type);
+	}
+
+	protected void validate(long userId, int type, String ipAddress) 
+		throws PortalException {
+
+		userLocalService.getUser(userId);
+
+		//TODO: add validation
+
+	}
+
 }
