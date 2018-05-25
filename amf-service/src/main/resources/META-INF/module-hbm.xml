@@ -9,6 +9,7 @@
 		</id>
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property column="type_" name="type" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="ipAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>

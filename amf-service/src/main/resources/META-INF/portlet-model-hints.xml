@@ -5,6 +5,7 @@
 		<field name="amfTrackEventEntryId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="userId" type="long" />
+		<field name="userName" type="String" />
 		<field name="type" type="int" />
 		<field name="ipAddress" type="String" />
 	</model>

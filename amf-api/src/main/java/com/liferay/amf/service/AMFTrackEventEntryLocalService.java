@@ -71,6 +71,9 @@ public interface AMFTrackEventEntryLocalService extends BaseLocalService,
 	public AMFTrackEventEntry addAMFTrackEventEntry(
 		AMFTrackEventEntry amfTrackEventEntry);
 
+	public AMFTrackEventEntry addTrackEventEntry(long userId, int type,
+		java.lang.String ipAddress) throws PortalException;
+
 	/**
 	* Creates a new amf track event entry with the primary key. Does not add the amf track event entry to the database.
 	*
@@ -145,6 +148,12 @@ public interface AMFTrackEventEntryLocalService extends BaseLocalService,
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	public int count(int type) throws PortalException;
+
+	public int count(long userId) throws PortalException;
+
+	public int count(long userId, int type) throws PortalException;
+
 	/**
 	* Returns the number of amf track event entries.
 	*
@@ -212,6 +221,18 @@ public interface AMFTrackEventEntryLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<AMFTrackEventEntry> getAMFTrackEventEntries(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AMFTrackEventEntry> getAMFTrackEventEntries(int type,
+		int start, int end) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AMFTrackEventEntry> getAMFTrackEventEntries(long userId,
+		int start, int end) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AMFTrackEventEntry> getAMFTrackEventEntries(long userId,
+		int type, int start, int end) throws PortalException;
 
 	/**
 	* Returns the number of rows matching the dynamic query.

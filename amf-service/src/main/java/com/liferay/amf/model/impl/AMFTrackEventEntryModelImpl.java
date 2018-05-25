@@ -18,12 +18,14 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.amf.model.AMFTrackEventEntry;
 import com.liferay.amf.model.AMFTrackEventEntryModel;
+import com.liferay.amf.model.AMFTrackEventEntrySoap;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
@@ -39,8 +41,10 @@ import java.io.Serializable;
 
 import java.sql.Types;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,6 +60,7 @@ import java.util.Map;
  * @see AMFTrackEventEntryModel
  * @generated
  */
+@JSON(strict = true)
 @ProviderType
 public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntry>
 	implements AMFTrackEventEntryModel {
@@ -69,6 +74,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 			{ "amfTrackEventEntryId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
 			{ "userId", Types.BIGINT },
+			{ "userName", Types.VARCHAR },
 			{ "type_", Types.INTEGER },
 			{ "ipAddress", Types.VARCHAR }
 		};
@@ -78,11 +84,12 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		TABLE_COLUMNS_MAP.put("amfTrackEventEntryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("ipAddress", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table AMFTrackEventEntry (amfTrackEventEntryId LONG not null primary key,createDate DATE null,userId LONG,type_ INTEGER,ipAddress VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table AMFTrackEventEntry (amfTrackEventEntryId LONG not null primary key,createDate DATE null,userId LONG,userName VARCHAR(75) null,type_ INTEGER,ipAddress VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table AMFTrackEventEntry";
 	public static final String ORDER_BY_JPQL = " ORDER BY amfTrackEventEntry.createDate DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY AMFTrackEventEntry.createDate DESC";
@@ -101,6 +108,51 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 	public static final long TYPE_COLUMN_BITMASK = 1L;
 	public static final long USERID_COLUMN_BITMASK = 2L;
 	public static final long CREATEDATE_COLUMN_BITMASK = 4L;
+
+	/**
+	 * Converts the soap model instance into a normal model instance.
+	 *
+	 * @param soapModel the soap model instance to convert
+	 * @return the normal model instance
+	 */
+	public static AMFTrackEventEntry toModel(AMFTrackEventEntrySoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
+		AMFTrackEventEntry model = new AMFTrackEventEntryImpl();
+
+		model.setAmfTrackEventEntryId(soapModel.getAmfTrackEventEntryId());
+		model.setCreateDate(soapModel.getCreateDate());
+		model.setUserId(soapModel.getUserId());
+		model.setUserName(soapModel.getUserName());
+		model.setType(soapModel.getType());
+		model.setIpAddress(soapModel.getIpAddress());
+
+		return model;
+	}
+
+	/**
+	 * Converts the soap model instances into normal model instances.
+	 *
+	 * @param soapModels the soap model instances to convert
+	 * @return the normal model instances
+	 */
+	public static List<AMFTrackEventEntry> toModels(
+		AMFTrackEventEntrySoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
+		List<AMFTrackEventEntry> models = new ArrayList<AMFTrackEventEntry>(soapModels.length);
+
+		for (AMFTrackEventEntrySoap soapModel : soapModels) {
+			models.add(toModel(soapModel));
+		}
+
+		return models;
+	}
+
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.amf.service.util.ServiceProps.get(
 				"lock.expiration.time.com.liferay.amf.model.AMFTrackEventEntry"));
 
@@ -144,6 +196,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		attributes.put("amfTrackEventEntryId", getAmfTrackEventEntryId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("type", getType());
 		attributes.put("ipAddress", getIpAddress());
 
@@ -173,6 +226,12 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 			setUserId(userId);
 		}
 
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
 		Integer type = (Integer)attributes.get("type");
 
 		if (type != null) {
@@ -186,6 +245,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		}
 	}
 
+	@JSON
 	@Override
 	public long getAmfTrackEventEntryId() {
 		return _amfTrackEventEntryId;
@@ -196,6 +256,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		_amfTrackEventEntryId = amfTrackEventEntryId;
 	}
 
+	@JSON
 	@Override
 	public Date getCreateDate() {
 		return _createDate;
@@ -208,6 +269,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		_createDate = createDate;
 	}
 
+	@JSON
 	@Override
 	public long getUserId() {
 		return _userId;
@@ -246,6 +308,23 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		return _originalUserId;
 	}
 
+	@JSON
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	@JSON
 	@Override
 	public int getType() {
 		return _type;
@@ -268,6 +347,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		return _originalType;
 	}
 
+	@JSON
 	@Override
 	public String getIpAddress() {
 		if (_ipAddress == null) {
@@ -317,6 +397,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		amfTrackEventEntryImpl.setAmfTrackEventEntryId(getAmfTrackEventEntryId());
 		amfTrackEventEntryImpl.setCreateDate(getCreateDate());
 		amfTrackEventEntryImpl.setUserId(getUserId());
+		amfTrackEventEntryImpl.setUserName(getUserName());
 		amfTrackEventEntryImpl.setType(getType());
 		amfTrackEventEntryImpl.setIpAddress(getIpAddress());
 
@@ -410,6 +491,14 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 
 		amfTrackEventEntryCacheModel.userId = getUserId();
 
+		amfTrackEventEntryCacheModel.userName = getUserName();
+
+		String userName = amfTrackEventEntryCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			amfTrackEventEntryCacheModel.userName = null;
+		}
+
 		amfTrackEventEntryCacheModel.type = getType();
 
 		amfTrackEventEntryCacheModel.ipAddress = getIpAddress();
@@ -425,7 +514,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{amfTrackEventEntryId=");
 		sb.append(getAmfTrackEventEntryId());
@@ -433,6 +522,8 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		sb.append(getCreateDate());
 		sb.append(", userId=");
 		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
 		sb.append(", type=");
 		sb.append(getType());
 		sb.append(", ipAddress=");
@@ -444,7 +535,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(22);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.amf.model.AMFTrackEventEntry");
@@ -461,6 +552,10 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 		sb.append(
 			"<column><column-name>userId</column-name><column-value><![CDATA[");
 		sb.append(getUserId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>type</column-name><column-value><![CDATA[");
@@ -485,6 +580,7 @@ public class AMFTrackEventEntryModelImpl extends BaseModelImpl<AMFTrackEventEntr
 	private long _userId;
 	private long _originalUserId;
 	private boolean _setOriginalUserId;
+	private String _userName;
 	private int _type;
 	private int _originalType;
 	private boolean _setOriginalType;

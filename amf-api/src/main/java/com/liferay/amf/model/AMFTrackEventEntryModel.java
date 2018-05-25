@@ -119,6 +119,21 @@ public interface AMFTrackEventEntryModel extends BaseModel<AMFTrackEventEntry> {
 	public void setUserUuid(String userUuid);
 
 	/**
+	 * Returns the user name of this amf track event entry.
+	 *
+	 * @return the user name of this amf track event entry
+	 */
+	@AutoEscape
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this amf track event entry.
+	 *
+	 * @param userName the user name of this amf track event entry
+	 */
+	public void setUserName(String userName);
+
+	/**
 	 * Returns the type of this amf track event entry.
 	 *
 	 * @return the type of this amf track event entry

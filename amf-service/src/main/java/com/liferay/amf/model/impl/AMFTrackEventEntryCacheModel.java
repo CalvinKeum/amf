@@ -66,7 +66,7 @@ public class AMFTrackEventEntryCacheModel implements CacheModel<AMFTrackEventEnt
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{amfTrackEventEntryId=");
 		sb.append(amfTrackEventEntryId);
@@ -74,6 +74,8 @@ public class AMFTrackEventEntryCacheModel implements CacheModel<AMFTrackEventEnt
 		sb.append(createDate);
 		sb.append(", userId=");
 		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", ipAddress=");
@@ -97,6 +99,14 @@ public class AMFTrackEventEntryCacheModel implements CacheModel<AMFTrackEventEnt
 		}
 
 		amfTrackEventEntryImpl.setUserId(userId);
+
+		if (userName == null) {
+			amfTrackEventEntryImpl.setUserName(StringPool.BLANK);
+		}
+		else {
+			amfTrackEventEntryImpl.setUserName(userName);
+		}
+
 		amfTrackEventEntryImpl.setType(type);
 
 		if (ipAddress == null) {
@@ -117,6 +127,7 @@ public class AMFTrackEventEntryCacheModel implements CacheModel<AMFTrackEventEnt
 		createDate = objectInput.readLong();
 
 		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
 
 		type = objectInput.readInt();
 		ipAddress = objectInput.readUTF();
@@ -129,6 +140,13 @@ public class AMFTrackEventEntryCacheModel implements CacheModel<AMFTrackEventEnt
 		objectOutput.writeLong(createDate);
 
 		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
 
 		objectOutput.writeInt(type);
 
@@ -143,6 +161,7 @@ public class AMFTrackEventEntryCacheModel implements CacheModel<AMFTrackEventEnt
 	public long amfTrackEventEntryId;
 	public long createDate;
 	public long userId;
+	public String userName;
 	public int type;
 	public String ipAddress;
 }

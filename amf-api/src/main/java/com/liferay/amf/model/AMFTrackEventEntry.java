@@ -55,4 +55,13 @@ public interface AMFTrackEventEntry extends AMFTrackEventEntryModel,
 				return AMFTrackEventEntry.class;
 			}
 		};
+
+	public java.lang.String getCreateDateDisplayHTML()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public java.lang.String getTypeLabelDisplayHTML()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public java.lang.String getUserNameIdDisplayHTML()
+		throws com.liferay.portal.kernel.exception.PortalException;
 }

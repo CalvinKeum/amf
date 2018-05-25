@@ -16,22 +16,51 @@ package com.liferay.amf.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.amf.constants.AMFTrackEventEntryConstants;
+import java.text.SimpleDateFormat;
+
 /**
- * The extended model implementation for the AMFTrackEventEntry service. Represents a row in the &quot;AMFTrackEventEntry&quot; database table, with each column mapped to a property of this class.
- *
- * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.amf.model.AMFTrackEventEntry} interface.
- * </p>
- *
  * @author Calvin Keum
  */
 @ProviderType
 public class AMFTrackEventEntryImpl extends AMFTrackEventEntryBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. All methods that expect a amf track event entry model instance should use the {@link com.liferay.amf.model.AMFTrackEventEntry} interface instead.
-	 */
+
 	public AMFTrackEventEntryImpl() {
 	}
+
+	@Override
+	public String getCreateDateDisplayHTML() throws PortalException {
+		String pattern = "yyyy-MM-dd HH:mm:ss";
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		String date = simpleDateFormat.format(getCreateDate());
+
+		return HtmlUtil.escape(date);
+	}
+
+	@Override
+	public String getTypeLabelDisplayHTML() throws PortalException {
+		String type = AMFTrackEventEntryConstants.getEventTypeLabel(getType());
+
+		return HtmlUtil.escape(type);
+	}
+
+	@Override
+	public String getUserNameIdDisplayHTML() throws PortalException {
+		StringBundler sb = new StringBundler(5);
+
+		sb.append(getUserName());
+		sb.append(StringPool.SPACE);
+		sb.append(StringPool.OPEN_PARENTHESIS);
+		sb.append(getUserId());
+		sb.append(StringPool.CLOSE_PARENTHESIS);
+
+		return HtmlUtil.escape(sb.toString());
+	}
+
 }

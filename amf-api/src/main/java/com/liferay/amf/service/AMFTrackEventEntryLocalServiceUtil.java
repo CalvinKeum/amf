@@ -53,6 +53,12 @@ public class AMFTrackEventEntryLocalServiceUtil {
 		return getService().addAMFTrackEventEntry(amfTrackEventEntry);
 	}
 
+	public static com.liferay.amf.model.AMFTrackEventEntry addTrackEventEntry(
+		long userId, int type, java.lang.String ipAddress)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().addTrackEventEntry(userId, type, ipAddress);
+	}
+
 	/**
 	* Creates a new amf track event entry with the primary key. Does not add the amf track event entry to the database.
 	*
@@ -144,6 +150,21 @@ public class AMFTrackEventEntryLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static int count(int type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().count(type);
+	}
+
+	public static int count(long userId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().count(userId);
+	}
+
+	public static int count(long userId, int type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().count(userId, type);
+	}
+
 	/**
 	* Returns the number of amf track event entries.
 	*
@@ -226,6 +247,24 @@ public class AMFTrackEventEntryLocalServiceUtil {
 	public static java.util.List<com.liferay.amf.model.AMFTrackEventEntry> getAMFTrackEventEntries(
 		int start, int end) {
 		return getService().getAMFTrackEventEntries(start, end);
+	}
+
+	public static java.util.List<com.liferay.amf.model.AMFTrackEventEntry> getAMFTrackEventEntries(
+		int type, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getAMFTrackEventEntries(type, start, end);
+	}
+
+	public static java.util.List<com.liferay.amf.model.AMFTrackEventEntry> getAMFTrackEventEntries(
+		long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getAMFTrackEventEntries(userId, start, end);
+	}
+
+	public static java.util.List<com.liferay.amf.model.AMFTrackEventEntry> getAMFTrackEventEntries(
+		long userId, int type, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getAMFTrackEventEntries(userId, type, start, end);
 	}
 
 	/**

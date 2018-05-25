@@ -23,9 +23,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class is used by SOAP remote services.
+ * This class is used by SOAP remote services, specifically {@link com.liferay.amf.service.http.AMFTrackEventEntryServiceSoap}.
  *
  * @author Calvin Keum
+ * @see com.liferay.amf.service.http.AMFTrackEventEntryServiceSoap
  * @generated
  */
 @ProviderType
@@ -36,6 +37,7 @@ public class AMFTrackEventEntrySoap implements Serializable {
 		soapModel.setAmfTrackEventEntryId(model.getAmfTrackEventEntryId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setUserId(model.getUserId());
+		soapModel.setUserName(model.getUserName());
 		soapModel.setType(model.getType());
 		soapModel.setIpAddress(model.getIpAddress());
 
@@ -117,6 +119,14 @@ public class AMFTrackEventEntrySoap implements Serializable {
 		_userId = userId;
 	}
 
+	public String getUserName() {
+		return _userName;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
 	public int getType() {
 		return _type;
 	}
@@ -136,6 +146,7 @@ public class AMFTrackEventEntrySoap implements Serializable {
 	private long _amfTrackEventEntryId;
 	private Date _createDate;
 	private long _userId;
+	private String _userName;
 	private int _type;
 	private String _ipAddress;
 }

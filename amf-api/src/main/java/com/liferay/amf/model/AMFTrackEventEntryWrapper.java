@@ -61,6 +61,7 @@ public class AMFTrackEventEntryWrapper implements AMFTrackEventEntry,
 		attributes.put("amfTrackEventEntryId", getAmfTrackEventEntryId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("type", getType());
 		attributes.put("ipAddress", getIpAddress());
 
@@ -85,6 +86,12 @@ public class AMFTrackEventEntryWrapper implements AMFTrackEventEntry,
 
 		if (userId != null) {
 			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
 		}
 
 		Integer type = (Integer)attributes.get("type");
@@ -165,6 +172,12 @@ public class AMFTrackEventEntryWrapper implements AMFTrackEventEntry,
 		return new AMFTrackEventEntryWrapper((AMFTrackEventEntry)_amfTrackEventEntry.clone());
 	}
 
+	@Override
+	public java.lang.String getCreateDateDisplayHTML()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _amfTrackEventEntry.getCreateDateDisplayHTML();
+	}
+
 	/**
 	* Returns the ip address of this amf track event entry.
 	*
@@ -173,6 +186,28 @@ public class AMFTrackEventEntryWrapper implements AMFTrackEventEntry,
 	@Override
 	public java.lang.String getIpAddress() {
 		return _amfTrackEventEntry.getIpAddress();
+	}
+
+	@Override
+	public java.lang.String getTypeLabelDisplayHTML()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _amfTrackEventEntry.getTypeLabelDisplayHTML();
+	}
+
+	/**
+	* Returns the user name of this amf track event entry.
+	*
+	* @return the user name of this amf track event entry
+	*/
+	@Override
+	public java.lang.String getUserName() {
+		return _amfTrackEventEntry.getUserName();
+	}
+
+	@Override
+	public java.lang.String getUserNameIdDisplayHTML()
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _amfTrackEventEntry.getUserNameIdDisplayHTML();
 	}
 
 	/**
@@ -329,6 +364,16 @@ public class AMFTrackEventEntryWrapper implements AMFTrackEventEntry,
 	@Override
 	public void setUserId(long userId) {
 		_amfTrackEventEntry.setUserId(userId);
+	}
+
+	/**
+	* Sets the user name of this amf track event entry.
+	*
+	* @param userName the user name of this amf track event entry
+	*/
+	@Override
+	public void setUserName(java.lang.String userName) {
+		_amfTrackEventEntry.setUserName(userName);
 	}
 
 	/**

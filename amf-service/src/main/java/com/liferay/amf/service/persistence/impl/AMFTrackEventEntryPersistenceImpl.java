@@ -1988,6 +1988,7 @@ public class AMFTrackEventEntryPersistenceImpl extends BasePersistenceImpl<AMFTr
 		amfTrackEventEntryImpl.setAmfTrackEventEntryId(amfTrackEventEntry.getAmfTrackEventEntryId());
 		amfTrackEventEntryImpl.setCreateDate(amfTrackEventEntry.getCreateDate());
 		amfTrackEventEntryImpl.setUserId(amfTrackEventEntry.getUserId());
+		amfTrackEventEntryImpl.setUserName(amfTrackEventEntry.getUserName());
 		amfTrackEventEntryImpl.setType(amfTrackEventEntry.getType());
 		amfTrackEventEntryImpl.setIpAddress(amfTrackEventEntry.getIpAddress());
 
