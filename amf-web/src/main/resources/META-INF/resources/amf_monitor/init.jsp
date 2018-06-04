@@ -16,16 +16,5 @@
 
 <%@ include file="/init.jsp" %>
 
-<%@ page import="com.liferay.amf.model.AMFTrackEventEntry" %><%@
-page import="com.liferay.amf.web.internal.display.context.AMFMonitorDisplayContext" %><%@
-page import="com.liferay.amf.web.internal.display.context.DefaultAMFMonitorDisplayContext" %><%@
-page import="com.liferay.amf.web.internal.display.context.util.AMFMonitorRequestHelper" %><%@
-page import="com.liferay.portal.kernel.dao.search.SearchContainer" %><%@
-page import="com.liferay.portal.kernel.servlet.SessionMessages" %>
-
-<%@ page import="javax.portlet.PortletURL" %>
-
-<%
-AMFMonitorRequestHelper amfMonitorRequestHelper = new AMFMonitorRequestHelper(request);
-AMFMonitorDisplayContext amfMonitorDisplayContext = new DefaultAMFMonitorDisplayContext(amfMonitorRequestHelper, request);
-%>
+<%@ page import="com.liferay.amf.model.AMFTrackEventEntry" %>
+<%@ page import="com.liferay.portal.kernel.servlet.SessionMessages" %>

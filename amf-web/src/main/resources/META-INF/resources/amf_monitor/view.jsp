@@ -16,29 +16,18 @@
 
 <%@ include file="/amf_monitor/init.jsp" %>
 
-<%
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setParameter("mvcRenderCommandName", "/amf_monitor/view");
-portletURL.setParameter("tabs1", amfMonitorRequestHelper.getTabs1());
-
-SearchContainer aMFMonitorSearchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, amfMonitorDisplayContext.getPageDelta(), portletURL, null, "there-are-no-entries");
-
-amfMonitorDisplayContext.populateResultsAndTotal(aMFMonitorSearchContainer);
-%>
-
 <liferay-ui:tabs
-	names="<%= amfMonitorDisplayContext.getTabs1Names() %>"
+	names="${amfMonitorDisplayContext.tabs1Names}"
 	type="tabs nav-tabs-default"
-	url="<%= amfMonitorDisplayContext.getTabs1PortletURL() %>"
+	url="${amfMonitorDisplayContext.tabs1PortletURL}"
 />
 
 <liferay-ui:search-container
-	searchContainer="<%= aMFMonitorSearchContainer %>"
-	total="<%= aMFMonitorSearchContainer.getTotal() %>"
+	searchContainer="${searchContainer}"
+	total="${searchContainer.total}"
 >
 	<liferay-ui:search-container-results
-		results="<%= aMFMonitorSearchContainer.getResults() %>"
+		results="${searchContainer.results}"
 	/>
 
 	<liferay-ui:search-container-row

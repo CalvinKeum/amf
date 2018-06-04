@@ -15,9 +15,22 @@
 package com.liferay.amf.web.internal.portlet;
 
 import com.liferay.amf.constants.AMFPortletKeys;
+import com.liferay.amf.web.internal.display.context.AMFMonitorDisplayContext;
+import com.liferay.amf.web.internal.display.context.DefaultAMFMonitorDisplayContext;
+import com.liferay.amf.web.internal.display.context.util.AMFMonitorRequestHelper;
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.util.PortalUtil;
+
+import java.io.IOException;
 
 import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.PortletURL;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -39,4 +52,43 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class AMFMonitorPortlet extends MVCPortlet {
+
+	@Override
+	public void render(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		HttpServletRequest servletRequest = PortalUtil.getHttpServletRequest(
+			renderRequest);
+
+		AMFMonitorRequestHelper amfMonitorRequestHelper =
+			new AMFMonitorRequestHelper(servletRequest);
+
+		AMFMonitorDisplayContext amfMonitorDisplayContext =
+			new DefaultAMFMonitorDisplayContext(
+				amfMonitorRequestHelper, servletRequest);
+
+		PortletURL portletURL = renderResponse.createRenderURL();
+
+		portletURL.setParameter("mvcRenderCommandName", "/amf_monitor/view");
+		portletURL.setParameter("tabs1", amfMonitorRequestHelper.getTabs1());
+
+		SearchContainer searchContainer = new SearchContainer(
+			renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM,
+			amfMonitorDisplayContext.getPageDelta(), portletURL, null,
+			"there-are-no-entries");
+
+		try {
+			amfMonitorDisplayContext.populateResultsAndTotal(searchContainer);
+		}
+		catch (Exception e) {
+		}
+
+		renderRequest.setAttribute(
+			"amfMonitorDisplayContext", amfMonitorDisplayContext);
+		renderRequest.setAttribute("searchContainer", searchContainer);
+
+		super.render(renderRequest, renderResponse);
+	}
+
 }
