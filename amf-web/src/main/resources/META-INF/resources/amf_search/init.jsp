@@ -16,6 +16,6 @@
 
 <%@ include file="/init.jsp" %>
 
-<%@ page import="com.liferay.amf.internal.util.AMFSearchResultsUtil" %><%@
+<%@ page import="com.liferay.amf.web.internal.util.AMFSearchResultsUtil" %><%@
 page import="com.liferay.portal.kernel.exception.AddressZipException" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionMessages" %>

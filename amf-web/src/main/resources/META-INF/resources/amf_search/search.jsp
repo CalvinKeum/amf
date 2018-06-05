@@ -22,14 +22,23 @@
 			<portlet:param name="mvcRenderCommandName" value="/amf_search/search" />
 		</portlet:actionURL>
 
-		<liferay-ui:error exception="<%= AddressZipException.class %>" message="the-zip-code-is-invalid" />
+		<liferay-ui:error exception="<%= AddressZipException.class %>">
+			<liferay-ui:message arguments="${maxDigitsZip}" key="the-zip-code-must-be-x-digits-long" translateArguments="<%= false %>" />
+		</liferay-ui:error>
 
 		<aui:form action="<%= searchActionURL %>" method="post" name="fm">
-			<aui:input label="enter-us-zip" name="search" type="text">
+			<aui:input label="enter-us-zip" name="searchZip" type="text">
+				<aui:validator errorMessage="The zip code must be ${maxDigitsZip} digits long" name="custom">
+					function(val, fieldNode, ruleValue) {
+						return ((val.length != ${maxDigitsZip}) ? false : true);
+					}
+				</aui:validator>
+
 				<aui:validator name="digits" />
+				<aui:validator name="required" />
 			</aui:input>
 
-			<aui:button type="submit" value="search"></aui:button>
+			<aui:button type="submit" value="search" />
 		</aui:form>
 	</c:when>
 	<c:otherwise>

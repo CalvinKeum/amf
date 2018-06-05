@@ -21,4 +21,6 @@ public class AMFSearchConstants {
 
 	public static final String AMF_TEC_ROLE = "AMFTEC";
 
+	public static final int MAX_ZIP_LENGTH = 5;
+
 }

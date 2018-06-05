@@ -53,33 +53,6 @@ public class SetupAMFRoles {
 				_userLocalService.getDefaultUserId(companyId), null, 0,
 				roleName, null, null, type, null, null);
 		}
-
-		/*int scope = ResourceConstants.SCOPE_COMPANY;
-
-		String primKey = String.valueOf(companyId);
-
-		List<Element> defaultActionKeysElements = roleElement.elements(
-			"default-action-keys");
-
-		for (Element defaultActionKeysElement : defaultActionKeysElements) {
-			String name = defaultActionKeysElement.attributeValue(
-				"resourceName");
-
-			List<String> actionIds = new ArrayList<>();
-
-			List<Element> actionKeyElements = defaultActionKeysElement.elements(
-				"action-key");
-
-			for (Element actionKeyElement : actionKeyElements) {
-				actionIds.add(actionKeyElement.getText());
-			}
-
-			_resourcePermissionLocalService.setResourcePermissions(
-				companyId, name, scope, primKey, role.getRoleId(),
-				actionIds.toArray(new String[actionIds.size()]));
-		}
-
-*/
 	}
 
 	protected void importRoles() throws Exception {

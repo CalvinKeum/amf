@@ -33,6 +33,7 @@ import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Calvin Keum
@@ -58,7 +59,7 @@ public class AMFMonitorPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		HttpServletRequest servletRequest = PortalUtil.getHttpServletRequest(
+		HttpServletRequest servletRequest = _portalUtil.getHttpServletRequest(
 			renderRequest);
 
 		AMFMonitorRequestHelper amfMonitorRequestHelper =
@@ -90,5 +91,8 @@ public class AMFMonitorPortlet extends MVCPortlet {
 
 		super.render(renderRequest, renderResponse);
 	}
+
+	@Reference
+	private PortalUtil _portalUtil;
 
 }

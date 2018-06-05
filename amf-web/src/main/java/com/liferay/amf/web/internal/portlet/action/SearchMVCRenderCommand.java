@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.amf.web.portlet.command.render;
+package com.liferay.amf.web.internal.portlet.action;
 
 import com.liferay.amf.constants.AMFPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
@@ -38,9 +38,9 @@ public class SearchMVCRenderCommand implements MVCRenderCommand {
 	public String render(
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
-		int search = ParamUtil.getInteger(renderRequest, "search");
+		int searchZip = ParamUtil.getInteger(renderRequest, "searchZip");
 
-		renderRequest.setAttribute("search", search);
+		renderRequest.setAttribute("searchZip", searchZip);
 
 		return "/amf_search/search.jsp";
 	}

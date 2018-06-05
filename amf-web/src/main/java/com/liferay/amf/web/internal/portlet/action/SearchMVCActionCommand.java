@@ -15,6 +15,7 @@
 package com.liferay.amf.web.internal.portlet.action;
 
 import com.liferay.amf.constants.AMFPortletKeys;
+import com.liferay.amf.constants.AMFSearchConstants;
 import com.liferay.portal.kernel.exception.AddressZipException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -43,21 +44,21 @@ public class SearchMVCActionCommand implements MVCActionCommand {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws PortletException {
 
-		String searchZip = ParamUtil.getString(actionRequest, "search");
+		String searchZip = ParamUtil.getString(actionRequest, "searchZip");
 
 		if (!Validator.isDigit(searchZip) ||
-			(searchZip.length() != _MAX_ZIP_LENGTH)) {
+			(searchZip.length() != AMFSearchConstants.MAX_ZIP_LENGTH)) {
 
 			SessionErrors.add(
 				actionRequest, AddressZipException.class,
 				new AddressZipException());
+
+			return false;
 		}
 
-		actionResponse.setRenderParameter("search", searchZip);
+		actionResponse.setRenderParameter("searchZip", searchZip);
 
 		return true;
 	}
-
-	private static final int _MAX_ZIP_LENGTH = 5;
 
 }

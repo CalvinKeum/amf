@@ -35,7 +35,7 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.name=" + AMFPortletKeys.AMF_SEARCH_RESULTS,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user",
-		"javax.portlet.supported-public-render-parameter=search"
+		"javax.portlet.supported-public-render-parameter=searchZip"
 	},
 	service = Portlet.class
 )

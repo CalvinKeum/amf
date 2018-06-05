@@ -15,6 +15,7 @@
 package com.liferay.amf.web.internal.portlet.action;
 
 import com.liferay.amf.constants.AMFPortletKeys;
+import com.liferay.amf.constants.AMFSearchConstants;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Property;
@@ -55,16 +56,18 @@ public class ViewSearchResultsMVCRenderCommand implements MVCRenderCommand {
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		try {
-			List<User> results = new ArrayList<>();
+			String searchZip = ParamUtil.getString(renderRequest, "searchZip");
 
-			String search = ParamUtil.getString(renderRequest, "search");
-			int delta = ParamUtil.getInteger(renderRequest, "delta", 5);
+			int delta = ParamUtil.getInteger(
+				renderRequest, "delta", _DEFAULT_DELTA);
 
 			PortletURL portletURL = renderResponse.createRenderURL();
 
 			portletURL.setParameter(
 				"mvcRenderCommandName", "/amf_search/search_results");
-			portletURL.setParameter("search", search);
+			portletURL.setParameter("searchZip", searchZip);
+
+			List<User> results = new ArrayList<>();
 
 			SearchContainer searchContainer = new SearchContainer(
 				renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM,
@@ -72,14 +75,10 @@ public class ViewSearchResultsMVCRenderCommand implements MVCRenderCommand {
 
 			int total = 0;
 
-			//
-			System.out.println("AMFSearchResultsPortlet::render " + search);
-
-			if (validateSearch(search)) {
-				List<Long> userIds = getAddressUserIds(search);
+			if (validateSearch(searchZip)) {
+				List<Long> userIds = getAddressUserIds(searchZip);
 
 				if (!ListUtil.isEmpty(userIds)) {
-					System.out.println("userids not empty");
 					DynamicQuery userDynamicQuery = getUsersDynamicQuery(
 						userIds);
 
@@ -94,49 +93,45 @@ public class ViewSearchResultsMVCRenderCommand implements MVCRenderCommand {
 				}
 			}
 			else {
-				search = StringPool.BLANK;
+				searchZip = StringPool.BLANK;
 			}
-
-			//
-			System.out.println("total: " + total);
 
 			searchContainer.setResults(results);
 			searchContainer.setTotal(total);
 
-			renderRequest.setAttribute("search", search);
 			renderRequest.setAttribute("searchContainer", searchContainer);
-			}
-			catch (Exception e) {
-			}
+			renderRequest.setAttribute("searchZip", searchZip);
+		}
+		catch (Exception e) {
+		}
 
-			return "/amf_search/search_results.jsp";
+		return "/amf_search/search_results.jsp";
 	}
 
-	protected List<Long> getAddressUserIds(String search) {
-		DynamicQuery addressDynamicQuery = _addressLocalService.dynamicQuery();
+	protected List<Long> getAddressUserIds(String searchZip) {
+		DynamicQuery dynamicQuery = _addressLocalService.dynamicQuery();
 
-		addressDynamicQuery.setProjection(
-			ProjectionFactoryUtil.property("userId"));
+		dynamicQuery.setProjection(ProjectionFactoryUtil.property("userId"));
 
 		Property primaryProperty = PropertyFactoryUtil.forName("primary");
 
-		addressDynamicQuery.add(primaryProperty.eq(true));
+		dynamicQuery.add(primaryProperty.eq(true));
 
 		Property zipProperty = PropertyFactoryUtil.forName("zip");
 
-		addressDynamicQuery.add(zipProperty.eq(search));
+		dynamicQuery.add(zipProperty.eq(searchZip));
 
-		return _addressLocalService.dynamicQuery(addressDynamicQuery);
+		return _addressLocalService.dynamicQuery(dynamicQuery);
 	}
 
 	protected DynamicQuery getUsersDynamicQuery(List<Long> userIds) {
-		DynamicQuery userDynamicQuery = _userLocalService.dynamicQuery();
+		DynamicQuery dynamicQuery = _userLocalService.dynamicQuery();
 
 		Property userIdProperty = PropertyFactoryUtil.forName("userId");
 
-		userDynamicQuery.add(userIdProperty.in(userIds));
+		dynamicQuery.add(userIdProperty.in(userIds));
 
-		return userDynamicQuery;
+		return dynamicQuery;
 	}
 
 	protected boolean validateSearch(String zip) {
@@ -146,14 +141,14 @@ public class ViewSearchResultsMVCRenderCommand implements MVCRenderCommand {
 		else if (!Validator.isDigit(zip)) {
 			return false;
 		}
-		else if (zip.length() != _MAX_ZIP_LENGTH) {
+		else if (zip.length() != AMFSearchConstants.MAX_ZIP_LENGTH) {
 			return false;
 		}
 
 		return true;
 	}
 
-	private static final int _MAX_ZIP_LENGTH = 5;
+	private static final int _DEFAULT_DELTA = 5;
 
 	@Reference
 	private AddressLocalService _addressLocalService;

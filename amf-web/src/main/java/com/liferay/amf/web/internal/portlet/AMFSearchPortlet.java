@@ -45,7 +45,7 @@ import org.osgi.service.component.annotations.Reference;
 		"javax.portlet.name=" + AMFPortletKeys.AMF_SEARCH,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user",
-		"javax.portlet.supported-public-render-parameter=search"
+		"javax.portlet.supported-public-render-parameter=searchZip"
 	},
 	service = Portlet.class
 )
@@ -56,10 +56,10 @@ public class AMFSearchPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
+		boolean viewPermission = false;
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
-
-		boolean viewPermission = false;
 
 		try {
 			viewPermission = _roleLocalService.hasUserRole(
@@ -70,6 +70,8 @@ public class AMFSearchPortlet extends MVCPortlet {
 		}
 
 		renderRequest.setAttribute("hasViewPermission", viewPermission);
+		renderRequest.setAttribute(
+			"maxDigitsZip", AMFSearchConstants.MAX_ZIP_LENGTH);
 
 		super.render(renderRequest, renderResponse);
 	}

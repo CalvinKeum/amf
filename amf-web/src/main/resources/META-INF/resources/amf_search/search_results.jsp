@@ -16,10 +16,10 @@
 
 <%@ include file="/amf_search/init.jsp" %>
 
-<c:if test="${not empty search}">
-	<h1><liferay-ui:message arguments="${search}" key="search-results-for-x" /></h1>
+<c:if test="${not empty searchZip}">
+	<h1><liferay-ui:message arguments="${searchZip}" key="search-results-for-x" /></h1>
 
-	<hr>
+	<hr />
 </c:if>
 
 <liferay-ui:search-container

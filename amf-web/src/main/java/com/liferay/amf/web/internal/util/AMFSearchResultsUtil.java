@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.amf.internal.util;
+package com.liferay.amf.web.internal.util;
 
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.HtmlUtil;
@@ -50,6 +50,7 @@ public class AMFSearchResultsUtil {
 		lastNameInitial = lastNameInitial.substring(0, 1);
 
 		sb.append(StringUtil.upperCaseFirstLetter(lastNameInitial));
+
 		sb.append(StringPool.PERIOD);
 
 		return HtmlUtil.escape(sb.toString());
