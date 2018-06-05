@@ -126,7 +126,7 @@ public class AMFRegistrationServiceImpl implements AMFRegistrationService {
 			user.getUserId(), _portal.getClassName(classNameId), contactId,
 			address, address2, StringPool.BLANK, city, zip,
 			region.getRegionId(), country.getCountryId(),
-			listType.getListTypeId(), false, false, serviceContext);
+			listType.getListTypeId(), false, true, serviceContext);
 	}
 
 	protected void addPhone(
