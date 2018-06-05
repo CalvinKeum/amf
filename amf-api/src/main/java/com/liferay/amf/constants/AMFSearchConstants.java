@@ -17,18 +17,8 @@ package com.liferay.amf.constants;
 /**
  * @author Calvin Keum
  */
-public class AMFPortletKeys {
+public class AMFSearchConstants {
 
-	public static final String AMF_MONITOR =
-		"com_liferay_amf_web_portlet_AMFMonitorPortlet";
-
-	public static final String AMF_REGISTRATION =
-		"com_liferay_amf_web_portlet_AMFRegistrationPortlet";
-
-	public static final String AMF_SEARCH =
-		"com_liferay_amf_web_portlet_AMFSearchPortlet";
-
-	public static final String AMF_SEARCH_RESULTS =
-		"com_liferay_amf_web_portlet_AMFSearchResultsPortlet";
+	public static final String AMF_TEC_ROLE = "AMFTEC";
 
 }
