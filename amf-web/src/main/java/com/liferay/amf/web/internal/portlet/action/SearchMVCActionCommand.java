@@ -16,7 +16,6 @@ package com.liferay.amf.web.internal.portlet.action;
 
 import com.liferay.amf.constants.AMFPortletKeys;
 import com.liferay.amf.constants.AMFSearchConstants;
-import com.liferay.portal.kernel.exception.AddressZipException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -49,9 +48,7 @@ public class SearchMVCActionCommand implements MVCActionCommand {
 		if (!Validator.isDigit(searchZip) ||
 			(searchZip.length() != AMFSearchConstants.MAX_ZIP_LENGTH)) {
 
-			SessionErrors.add(
-				actionRequest, AddressZipException.class,
-				new AddressZipException());
+			SessionErrors.add(actionRequest, "zipCodeInvalid");
 
 			return false;
 		}

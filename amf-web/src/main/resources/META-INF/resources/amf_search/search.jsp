@@ -22,7 +22,7 @@
 			<portlet:param name="mvcRenderCommandName" value="/amf_search/search" />
 		</portlet:actionURL>
 
-		<liferay-ui:error exception="<%= AddressZipException.class %>">
+		<liferay-ui:error key="zipCodeInvalid">
 			<liferay-ui:message arguments="${maxDigitsZip}" key="the-zip-code-must-be-x-digits-long" translateArguments="<%= false %>" />
 		</liferay-ui:error>
 
